@@ -1002,11 +1002,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pablo\\source\\repos\\Tarea2\\Tarea2.csproj",
+      "projectUniqueName": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\Tarea2.csproj",
       "projectName": "Tarea2",
-      "projectPath": "C:\\Users\\Pablo\\source\\repos\\Tarea2\\Tarea2.csproj",
+      "projectPath": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\Tarea2.csproj",
       "packagesPath": "C:\\Users\\Pablo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pablo\\source\\repos\\Tarea2\\obj\\",
+      "outputPath": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Pablo\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -16,8 +16,6 @@
         int GetFirst();
         int GetLast();
         Nodo GetFirstNode();
-
-
-        void MergeSorted(IList listA, IList listB, SortDirection direction);
+        void MergeSorted(IList listA, IList listB, ListaDoble mergedList, SortDirection direction);
     }
 }
