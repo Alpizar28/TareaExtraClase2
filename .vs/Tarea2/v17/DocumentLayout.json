@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2CD5ED3C-80BB-4F2F-905A-812AC1A9A0D8}|Tarea2.csproj|c:\\users\\pablo\\onedrive - estudiantes itcr\\tec\\semestre 2\\00 datos\\tareaextraclase2\\tareaextraclase2\\listadoble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CD5ED3C-80BB-4F2F-905A-812AC1A9A0D8}|Tarea2.csproj|solutionrelative:listadoble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2CD5ED3C-80BB-4F2F-905A-812AC1A9A0D8}|Tarea2.csproj|c:\\users\\pablo\\onedrive - estudiantes itcr\\tec\\semestre 2\\00 datos\\tareaextraclase2\\tareaextraclase2\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2CD5ED3C-80BB-4F2F-905A-812AC1A9A0D8}|Tarea2.csproj|solutionrelative:unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CD5ED3C-80BB-4F2F-905A-812AC1A9A0D8}|Tarea2.csproj|c:\\users\\pablo\\onedrive - estudiantes itcr\\tec\\semestre 2\\00 datos\\tareaextraclase2\\tareaextraclase2\\listadoble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CD5ED3C-80BB-4F2F-905A-812AC1A9A0D8}|Tarea2.csproj|solutionrelative:listadoble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2CD5ED3C-80BB-4F2F-905A-812AC1A9A0D8}|Tarea2.csproj|c:\\users\\pablo\\onedrive - estudiantes itcr\\tec\\semestre 2\\00 datos\\tareaextraclase2\\tareaextraclase2\\ilist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -72,7 +72,7 @@
               "RelativeDocumentMoniker": "IList.cs",
               "ToolTip": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\IList.cs",
               "RelativeToolTip": "IList.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAxwAgAAAAaAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-09T19:38:33.73Z",
               "EditorCaption": ""
@@ -80,27 +80,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ListaDoble.cs",
-              "DocumentMoniker": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\ListaDoble.cs",
-              "RelativeDocumentMoniker": "ListaDoble.cs",
-              "ToolTip": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\ListaDoble.cs",
-              "RelativeToolTip": "ListaDoble.cs",
-              "ViewState": "AQIAAB0BAAAAAAAAAAAgwCoBAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-07T22:12:02.97Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "UnitTest1.cs",
               "DocumentMoniker": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\UnitTest1.cs",
               "RelativeDocumentMoniker": "UnitTest1.cs",
               "ToolTip": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\UnitTest1.cs",
               "RelativeToolTip": "UnitTest1.cs",
-              "ViewState": "AQIAAHkAAAAAAAAAAAAqwIoAAAAiAAAA",
+              "ViewState": "AQIAADIAAAAAAAAAAAAwwAcAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-07T17:40:53.63Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ListaDoble.cs",
+              "DocumentMoniker": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\ListaDoble.cs",
+              "RelativeDocumentMoniker": "ListaDoble.cs",
+              "ToolTip": "C:\\Users\\Pablo\\OneDrive - Estudiantes ITCR\\TEC\\Semestre 2\\00 Datos\\TareaExtraClase2\\TareaExtraClase2\\ListaDoble.cs",
+              "RelativeToolTip": "ListaDoble.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAIwE8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-07T22:12:02.97Z",
               "EditorCaption": ""
             }
           ]

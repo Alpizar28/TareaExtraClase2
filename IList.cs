@@ -13,9 +13,13 @@
         int DeleteLast();
         bool DeleteValue(int value);
         int GetMiddle();
-        int GetFirst();
-        int GetLast();
-        Nodo GetFirstNode();
         void MergeSorted(IList listA, IList listB, ListaDoble mergedList, SortDirection direction);
+
+
+        Nodo GetFirstNode();
+        void AdjustCentralNode();
+        void Insert(int value);
+        void MergeSortedAsceding(IList listA, IList listB, ListaDoble mergedList);
+
     }
 }

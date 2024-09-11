@@ -7,186 +7,234 @@ namespace Tarea2
     public class UnitTest1
     {
         [TestMethod]
-        public void TestInsertInOrder()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestMergeWithListANull()
         {
-            ListaDoble lista = new ListaDoble();
-
-            lista.InsertInOrder(5);
-            lista.InsertInOrder(10);
-
-            Assert.AreEqual(5, lista.GetFirst());
-            Assert.AreEqual(10, lista.GetLast());
+            ListaDoble listA = null;
+            ListaDoble listB = new ListaDoble();
+            listB.InsertInOrder(3);
+            ListaDoble mergedList = new ListaDoble();
+            mergedList.MergeSorted(listA, listB, mergedList, SortDirection.Asc);
         }
 
         [TestMethod]
-        public void TestMergeSortedAscending()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestMergeWithListBNull()
+        {
+            ListaDoble listA = new ListaDoble();
+            ListaDoble listB = null;
+            listA.InsertInOrder(10);
+            ListaDoble mergedList = new ListaDoble();
+            mergedList.MergeSorted(listA, listB, mergedList, SortDirection.Asc);
+        }
+
+        [TestMethod]
+        public void TestMergeAscendingOrder()
         {
             ListaDoble listA = new ListaDoble();
             ListaDoble listB = new ListaDoble();
             ListaDoble mergedList = new ListaDoble();
 
-            listA.InsertInOrder(1);
-            listA.InsertInOrder(3);
-            listA.InsertInOrder(5);
+            listA.InsertInOrder(0);
+            listA.InsertInOrder(2);
+            listA.InsertInOrder(6);
+            listA.InsertInOrder(10);
+            listA.InsertInOrder(25);
 
-            listB.InsertInOrder(2);
-            listB.InsertInOrder(4);
-            listB.InsertInOrder(6);
+            listB.InsertInOrder(3);
+            listB.InsertInOrder(7);
+            listB.InsertInOrder(11);
+            listB.InsertInOrder(40);
+            listB.InsertInOrder(50);
 
             mergedList.MergeSorted(listA, listB, mergedList, SortDirection.Asc);
 
-            Assert.AreEqual(1, mergedList.GetFirst());
-            Assert.AreEqual(6, mergedList.GetLast());
+            int[] expectedValues = { 0, 2, 3, 6, 7, 10, 11, 25, 40, 50 };
+            Nodo current = mergedList.GetFirstNode();
+            foreach (int expected in expectedValues)
+            {
+                Assert.AreEqual(expected, current.Valor);
+                current = current.Siguiente;
+            }
         }
 
         [TestMethod]
-        public void TestMergeSortedDescending()
+        public void TestMergeDescendingOrder()
         {
-            // Inicializamos las listas
             ListaDoble listA = new ListaDoble();
             ListaDoble listB = new ListaDoble();
             ListaDoble mergedList = new ListaDoble();
 
-            // Insertamos valores en orden ascendente en las listas
-            listA.InsertInOrder(1);
-            listA.InsertInOrder(3);
-            listA.InsertInOrder(5);
+            listA.InsertInOrder(10);
+            listA.InsertInOrder(15);
 
-            listB.InsertInOrder(2);
-            listB.InsertInOrder(4);
+            listB.InsertInOrder(9);
+            listB.InsertInOrder(40);
+            listB.InsertInOrder(50);
 
-            // Realizamos la fusión en orden descendente
             mergedList.MergeSorted(listA, listB, mergedList, SortDirection.Desc);
 
-            // Verificamos que la cabeza tenga el valor más alto (5) y la cola el más bajo (1)
-            Assert.AreEqual(5, mergedList.cabeza.Valor); // La cabeza debe ser 5
-            Assert.AreEqual(1, mergedList.cola.Valor);   // La cola debe ser 1
-
-            // Verificamos todos los valores en orden descendente: 5, 4, 3, 2, 1
-            Nodo actual = mergedList.cabeza;
-            int[] valoresEsperados = { 5, 4, 3, 2, 1 };
-            int indice = 0;
-
-            while (actual != null)
+            int[] expectedValues = { 50, 40, 15, 10, 9 };
+            Nodo current = mergedList.GetFirstNode();
+            foreach (int expected in expectedValues)
             {
-                Assert.AreEqual(valoresEsperados[indice], actual.Valor);
-                actual = actual.Siguiente;
-                indice++;
+                Assert.AreEqual(expected, current.Valor);
+                current = current.Siguiente;
+            }
+        }
+
+        [TestMethod]
+        public void TestMergeDescendingWithEmptyListA()
+        {
+            ListaDoble listA = new ListaDoble(); // Vacía
+            ListaDoble listB = new ListaDoble();
+            ListaDoble mergedList = new ListaDoble();
+
+            listB.InsertInOrder(9);
+            listB.InsertInOrder(40);
+            listB.InsertInOrder(50);
+
+            mergedList.MergeSorted(listA, listB, mergedList, SortDirection.Desc);
+
+            int[] expectedValues = { 50, 40, 9 };
+            Nodo current = mergedList.GetFirstNode();
+            foreach (int expected in expectedValues)
+            {
+                Assert.AreEqual(expected, current.Valor);
+                current = current.Siguiente;
+            }
+        }
+
+        [TestMethod]
+        public void TestMergeAscendingWithEmptyListB()
+        {
+            ListaDoble listA = new ListaDoble();
+            ListaDoble listB = new ListaDoble(); // Vacía
+            ListaDoble mergedList = new ListaDoble();
+
+            listA.InsertInOrder(10);
+            listA.InsertInOrder(15);
+
+            mergedList.MergeSorted(listA, listB, mergedList, SortDirection.Asc);
+
+            int[] expectedValues = { 10, 15 };
+            Nodo current = mergedList.GetFirstNode();
+            foreach (int expected in expectedValues)
+            {
+                Assert.AreEqual(expected, current.Valor);
+                current = current.Siguiente;
             }
         }
 
 
+        //PROPLEMA 2 INVERT
+
 
         [TestMethod]
-        public void TestDeleteFirst()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void TestInvertNullList()
         {
             ListaDoble lista = new ListaDoble();
-            lista.InsertInOrder(5);
-            lista.InsertInOrder(10);
-
-            lista.DeleteFirst();
-
-            Assert.AreEqual(10, lista.GetFirst());
+            lista.Invert(null);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestMergeSortedWithNullListA()
-        {
-            ListaDoble listB = new ListaDoble();
-            listB.InsertInOrder(2);
-
-            ListaDoble resultado = new ListaDoble();
-            resultado.MergeSorted(null, listB, resultado, SortDirection.Asc);
-        }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestMergeSortedWithNullListB()
-        {
-            ListaDoble listA = new ListaDoble();
-            listA.InsertInOrder(2);
-
-            ListaDoble resultado = new ListaDoble();
-            resultado.MergeSorted(listA, null, resultado, SortDirection.Asc);
-        }
-
-        [TestMethod]
-        public void TestDeleteLast()
+        public void TestInvertList()
         {
             ListaDoble lista = new ListaDoble();
-            lista.InsertInOrder(5);
-            lista.InsertInOrder(10);
-
-            lista.DeleteLast();
-
-            Assert.AreEqual(5, lista.GetLast());
-        }
-
-        [TestMethod]
-        public void TestInvert()
-        {
-            ListaDoble lista = new ListaDoble();
-
-            lista.InsertInOrder(1);
-            lista.InsertInOrder(3);
-            lista.InsertInOrder(5);
-
-            int cabeza = lista.GetFirst();
+            lista.Insert(1);
+            lista.Insert(0);
+            lista.Insert(30);
+            lista.Insert(50);
+            lista.Insert(2);
 
             lista.Invert(lista);
 
-            Assert.AreEqual(cabeza, lista.GetLast());
+            int[] expectedValues = { 2, 50, 30, 0, 1 };
+            Nodo current = lista.GetFirstNode();
+            foreach (int expected in expectedValues)
+            {
+                Assert.AreEqual(expected, current.Valor);
+                current = current.Siguiente;
+            }
         }
 
         [TestMethod]
-        public void TestGetMiddleSingleNode()
+        public void TestInvertSingleNodeList()
         {
             ListaDoble lista = new ListaDoble();
+            lista.InsertInOrder(2);
 
-            lista.InsertInOrder(5);
+            lista.Invert(lista);
 
-            Assert.AreEqual(5, lista.GetMiddle());
+            Assert.AreEqual(2, lista.GetFirstNode().Valor);
+        }
+
+
+
+
+        // PROBLEMA 3 GET MIDDLE
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void TestGetMiddleWithNullList()
+        {
+            ListaDoble lista = null; 
+            lista.GetMiddle(); 
+        }
+
+
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void TestGetMiddleWithEmptyList()
+        {
+            ListaDoble lista = new ListaDoble(); 
+            lista.GetMiddle();
         }
 
         [TestMethod]
-        public void TestGetMiddleEvenNodes()
+        public void TestGetMiddleWithSingleNode()
         {
             ListaDoble lista = new ListaDoble();
+            lista.InsertInOrder(1);
 
+            Assert.AreEqual(1, lista.GetMiddle());
+        }
+
+        [TestMethod]
+        public void TestGetMiddleWithTwoNodes()
+        {
+            ListaDoble lista = new ListaDoble();
             lista.InsertInOrder(1);
             lista.InsertInOrder(2);
 
-            Assert.AreEqual(2, lista.GetMiddle());  // Cuando hay 2 elementos, el segundo debe ser el central
+            Assert.AreEqual(2, lista.GetMiddle());
         }
 
         [TestMethod]
-        public void TestGetMiddleImpares()
+        public void TestGetMiddleWithThreeNodes()
         {
             ListaDoble lista = new ListaDoble();
-
             lista.InsertInOrder(1);
             lista.InsertInOrder(2);
             lista.InsertInOrder(3);
 
-            Assert.AreEqual(2, lista.GetMiddle());  // En una lista de 3 elementos, el central es el segundo
+            Assert.AreEqual(2, lista.GetMiddle());
         }
 
         [TestMethod]
-        public void TestGetMiddlePares()
+        public void TestGetMiddleWithFourNodes()
         {
             ListaDoble lista = new ListaDoble();
-
             lista.InsertInOrder(1);
             lista.InsertInOrder(2);
             lista.InsertInOrder(3);
             lista.InsertInOrder(4);
-            lista.InsertInOrder(5);
-            lista.InsertInOrder(6);
 
-            Assert.AreEqual(3, lista.GetMiddle());  // En una lista de 3 elementos, el central es el segundo
+            Assert.AreEqual(3, lista.GetMiddle());
         }
-
 
     }
     }

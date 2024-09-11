@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
-using System.ComponentModel;
+﻿using System;
 
 namespace Tarea2
 {
@@ -32,6 +31,7 @@ namespace Tarea2
             nodoCentral = null;
         }
 
+
         public void InsertInOrder(int value)
         {
             Nodo nuevo = new Nodo(value);
@@ -40,15 +40,15 @@ namespace Tarea2
             {
                 cabeza = nuevo;
                 cola = nuevo;
-                nodoCentral = nuevo;  
+                nodoCentral = nuevo;
             }
-            else if (value <= cabeza.Valor) //insertar al inicio
+            else if (value <= cabeza.Valor)
             {
                 nuevo.Siguiente = cabeza;
                 cabeza.Anterior = nuevo;
                 cabeza = nuevo;
             }
-            else if (value >= cola.Valor) // insertar al final
+            else if (value >= cola.Valor)
             {
                 cola.Siguiente = nuevo;
                 nuevo.Anterior = cola;
@@ -57,12 +57,10 @@ namespace Tarea2
             else
             {
                 Nodo temporal = cabeza;
-
                 while (temporal != null && temporal.Valor < value)
                 {
                     temporal = temporal.Siguiente;
                 }
-
                 nuevo.Siguiente = temporal;
                 nuevo.Anterior = temporal.Anterior;
                 temporal.Anterior.Siguiente = nuevo;
@@ -70,34 +68,35 @@ namespace Tarea2
             }
 
             tamaño++;
-
-            // Ajustar nodo central
-            if (tamaño % 2 == 0)
-            {
-                nodoCentral = nodoCentral.Siguiente; // Mueve hacia adelante en tamaño par
-            }
+            AdjustCentralNode();
         }
 
         public int GetMiddle()
         {
             if (cabeza == null)
-                throw new InvalidOperationException("La lista está vacía");
-
-            Nodo slow = cabeza;
-            Nodo fast = cabeza;
-
-            while (fast != null && fast.Siguiente != null)
             {
-                slow = slow.Siguiente;
-                fast = fast.Siguiente.Siguiente;
+                throw new InvalidOperationException("La lista está vacía.");
             }
 
-            if (tamaño % 2 == 0)
+            return nodoCentral.Valor;
+        }
+        public void AdjustCentralNode()
+        {
+            if (tamaño == 0)
             {
-                slow = slow.Anterior;
+                nodoCentral = null;
+                return;
             }
 
-            return slow.Valor;
+            Nodo temporal = cabeza;
+            int middleIndex = tamaño / 2;
+
+            for (int i = 0; i < middleIndex; i++)
+            {
+                temporal = temporal.Siguiente;
+            }
+
+            nodoCentral = temporal;
         }
         public int DeleteFirst()
         {
@@ -106,7 +105,7 @@ namespace Tarea2
 
             int valorEliminado = cabeza.Valor;
 
-            if (cabeza == cola) // Si solo hay un nodo
+            if (cabeza == cola)
             {
                 cabeza = null;
                 cola = null;
@@ -119,25 +118,18 @@ namespace Tarea2
             }
 
             tamaño--;
-
-            // Ajustar nodo central
-            if (tamaño % 2 == 0 && nodoCentral != null)
-            {
-                nodoCentral = nodoCentral.Anterior;
-            }
-
-            return valorEliminado; // Retorna el valor eliminado
+            AdjustCentralNode();
+            return valorEliminado;
         }
-
 
         public int DeleteLast()
         {
-            if (cabeza == null)
+            if (cola == null)
                 throw new InvalidOperationException("La lista está vacía");
 
             int valorEliminado = cola.Valor;
 
-            if (cabeza == cola) // Si solo hay un nodo
+            if (cabeza == cola)
             {
                 cabeza = null;
                 cola = null;
@@ -150,38 +142,15 @@ namespace Tarea2
             }
 
             tamaño--;
-
-            // Ajustar nodo central
-            if (tamaño % 2 == 0 && nodoCentral != null)
-            {
-                nodoCentral = nodoCentral.Anterior;
-            }
-
-            return valorEliminado; // Retorna el valor eliminado
-        }
-
-
-        public int GetFirst()
-        {
-            VerifyList();
-            return cabeza.Valor;
-        }
-
-        public Nodo GetFirstNode()
-        {
-            VerifyList();
-            return cabeza;
-        }
-
-        public int GetLast()
-        {
-            VerifyList();
-            return cola.Valor;
+            AdjustCentralNode();
+            return valorEliminado;
         }
 
         public bool DeleteValue(int value)
         {
-            VerifyList();
+            if (cabeza != null)
+                return false;
+
             if (cabeza.Valor == value)
             {
                 DeleteFirst();
@@ -206,124 +175,69 @@ namespace Tarea2
                 {
                     temporal.Siguiente.Anterior = temporal.Anterior;
                 }
+
+                tamaño--;
+                AdjustCentralNode();
                 return true;
             }
         }
 
-        public bool VerifyList()
+        public Nodo GetFirstNode()
         {
-            return cabeza != null;
+            return cabeza;
         }
 
-        public void InsertAtEnd(int value)
-        {
-            Nodo nuevo = new Nodo(value);
-            if (cabeza == null)
-            {
-                cabeza = nuevo;
-                cola = nuevo;
-            }
-            else
-            {
-                cola.Siguiente = nuevo;
-                nuevo.Anterior = cola;
-                cola = nuevo;
-            }
-            tamaño++;
-        }
-        public void InsertAtStart(int value)
-        {
-            Nodo nuevo = new Nodo(value);
-            if (cabeza == null)
-            {
-                cabeza = nuevo;
-                cola = nuevo;
-            }
-            else
-            {
-                nuevo.Siguiente = cabeza;
-                cabeza.Anterior = nuevo;
-                cabeza = nuevo;
-            }
-            tamaño++;
-        }
         public void MergeSorted(IList listA, IList listB, ListaDoble mergedList, SortDirection direction)
+        {
+            if (direction == SortDirection.Asc)
+            {
+                MergeSortedAsceding(listA, listB, mergedList);
+            }
+            else if (direction == SortDirection.Desc)
+            {
+                MergeSortedAsceding(listA, listB, mergedList);
+                Invert(mergedList);
+            }
+        }
+
+        public void MergeSortedAsceding(IList listA, IList listB, ListaDoble mergedList)
         {
             if (listA == null || listB == null || mergedList == null)
                 throw new ArgumentNullException("Las listas no pueden ser nulas.");
 
-            if (listA.GetFirstNode() == null && listB.GetFirstNode() == null)
-                throw new InvalidOperationException("Ambas listas están vacías.");
-
             Nodo nodoA = listA.GetFirstNode();
             Nodo nodoB = listB.GetFirstNode();
 
-            mergedList.Clear();
+            mergedList.Clear(); 
 
             while (nodoA != null && nodoB != null)
             {
-                if (direction == SortDirection.Asc)
+                if (nodoA.Valor <= nodoB.Valor)
                 {
-                    // Orden ascendente: insertar al final
-                    if (nodoA.Valor <= nodoB.Valor)
-                    {
-                        mergedList.InsertAtEnd(nodoA.Valor);
-                        nodoA = nodoA.Siguiente;
-                    }
-                    else
-                    {
-                        mergedList.InsertAtEnd(nodoB.Valor);
-                        nodoB = nodoB.Siguiente;
-                    }
+                    mergedList.InsertInOrder(nodoA.Valor);
+                    nodoA = nodoA.Siguiente;
                 }
                 else
                 {
-                    // Orden descendente: insertar al inicio
-                    if (nodoA.Valor >= nodoB.Valor)
-                    {
-                        mergedList.InsertAtStart(nodoA.Valor);
-                        nodoA = nodoA.Siguiente;
-                    }
-                    else
-                    {
-                        mergedList.InsertAtStart(nodoB.Valor);
-                        nodoB = nodoB.Siguiente;
-                    }
+                    mergedList.InsertInOrder(nodoB.Valor);
+                    nodoB = nodoB.Siguiente;
                 }
             }
 
-            // Insertar los nodos restantes de listA en la lista fusionada
+            // Insertar nodos restantes de listA si quedan
             while (nodoA != null)
             {
-                if (direction == SortDirection.Asc)
-                {
-                    mergedList.InsertAtEnd(nodoA.Valor);
-                }
-                else
-                {
-                    mergedList.InsertAtStart(nodoA.Valor);  // Para orden descendente, insertar al inicio
-                }
+                mergedList.InsertInOrder(nodoA.Valor);
                 nodoA = nodoA.Siguiente;
             }
 
-            // Insertar los nodos restantes de listB en la lista fusionada
+            // Insertar nodos restantes de listB si quedan
             while (nodoB != null)
             {
-                if (direction == SortDirection.Asc)
-                {
-                    mergedList.InsertAtEnd(nodoB.Valor);
-                }
-                else
-                {
-                    mergedList.InsertAtStart(nodoB.Valor);  // Para orden descendente, insertar al inicio
-                }
+                mergedList.InsertInOrder(nodoB.Valor);
                 nodoB = nodoB.Siguiente;
             }
         }
-
-
-
-
 
         public void Clear()
         {
@@ -334,8 +248,15 @@ namespace Tarea2
 
         public void Invert(ListaDoble lista)
         {
-            if (cabeza == null) throw new InvalidOperationException("La lista está vacía");
+            if (lista == null)
+            {
+                throw new InvalidOperationException("No se puede invertir una lista nula.");
+            }
 
+            if (lista.cabeza == null)
+            {
+                return;
+            }
             Nodo temporal = null;
             Nodo actual = lista.cabeza;
             while (actual != null)
@@ -353,6 +274,31 @@ namespace Tarea2
             }
         }
 
+        public void Insert(int value)
+        {
+            Nodo nuevo = new Nodo(value);
 
+            if (cabeza == null)
+            {
+                cabeza = nuevo;
+                cola = nuevo;
+                nodoCentral = nuevo;
+            }
+            else
+            {
+                cola.Siguiente = nuevo;
+                nuevo.Anterior = cola;
+                cola = nuevo;
+            }
+
+            tamaño++;
+
+            if (tamaño % 2 == 0)
+            {
+                nodoCentral = nodoCentral.Siguiente;
+            }
+        }
     }
 }
+
+
